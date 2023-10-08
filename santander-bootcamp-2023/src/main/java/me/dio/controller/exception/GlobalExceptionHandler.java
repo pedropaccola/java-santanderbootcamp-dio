@@ -1,5 +1,7 @@
 package me.dio.controller.exception;
 
+import me.dio.service.exception.BusinessException;
+import me.dio.service.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -12,13 +14,13 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleCreate(IllegalArgumentException e) {
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<String> handleBusinessException(BusinessException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<String> handleFindById(NoSuchElementException e) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<String> handleNoContentException(NotFoundException e) {
         return new ResponseEntity<>("Resource id not found", HttpStatus.NOT_FOUND);
     }
 
